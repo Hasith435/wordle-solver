@@ -6,17 +6,12 @@ wordle_answers = get_wordle_answers()
 wordle_guesses = get_wordle_guesses()
 
 def req_word_color_code():
-    word_sep = []
-    color_code_sep = []
 
     word = str(input('word: '))
     color_code = str(input('color_code: '))
 
-    for letters in word:
-        word_sep.append(letters)
-
-    for code in color_code:
-        color_code_sep.append(code)
+    word_sep = word.split()
+    color_code_sep = color_code.split()
 
     return word_sep, color_code_sep
 
@@ -49,27 +44,16 @@ def most_common_word(sep_word, sep_color_code):
             Y_letters.append(sep_word[i])
             Y_letter_index.append(i)
 
-    # print(G_letter_index)
-    # print(g_letter_index)
-    # print(Y_letter_index)
-
     G_letter_words = []
     Y_letter_words = []
 
-    count = 0
-    current_word_letters = []
-
     for word in wordle_answers:
-        for word_letter in word:
-            current_word_letters.append(word_letter)
+        match_count = 0
 
-        for G_letter_indexes in G_letter_index:
-            for G_let in G_letters:
-                if current_word_letters[G_letter_indexes] == G_let:
-                    print("equal")
-                    count += 1
+        for green_index in G_letter_index:
+            match_count += 1 if word[green_index] == sep_word[green_index] else 0
 
-        if count == len(G_letters):
+        if match_count == len(G_letters):
             G_letter_words.append(word)
 
 
